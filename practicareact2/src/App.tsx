@@ -5,19 +5,22 @@ import {useNavigate} from 'react-router-dom';
 
 interface FormData {
   txtArchi: string[];
+  txtSeparator: string;
 }
 
 const App = () => {
   const { register, handleSubmit } = useForm<FormData>();
+
   const navigate = useNavigate()
 
   const parse: any = usePapaParse();
 
   const onSubmit = (data: FormData) => {
     const archivo: any = data.txtArchi[0];
-
+    const delimiter: string = data.txtSeparator || ';';
+    
     parse.readString(archivo, {
-      delimiter: ';',
+      delimiter: delimiter,
       header: false,
       dynamicTyping: true,
       complete: (result: any) => {
@@ -42,7 +45,13 @@ const App = () => {
                 />
               </Grid>
               <Grid>
-                <button type="submit" style={{ padding: '10px 15px', fontSize: '13px' }}>
+                <label htmlFor="txtSeparator">Separador:</label>
+                <input 
+                    {...register('txtSeparator', { required: true })}
+                    type='text'
+                    style={{ width: '8%', padding: '5px', fontSize: '13px', margin: '4px' }}
+                />
+                <button type="submit" style={{ padding: '10px 15px', fontSize: '13px', margin: '4px'  }}>
                   Procesar
                 </button>
               </Grid>
