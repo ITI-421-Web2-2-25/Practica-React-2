@@ -13,7 +13,7 @@ const Procesar = () => {
         }
     });
 
-    const data = [contenido.slice(1, 50).map((row: any) => {
+    const data = [contenido.slice(1, 100).map((row: any) => {
         const obj: any = {};
         for (let i = 0; i < row.length; i++) {
             obj[columns[i].name] = row[i];
